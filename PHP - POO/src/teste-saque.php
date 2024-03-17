@@ -11,7 +11,7 @@ $conta = new ContaCorrente(
         'vinicius pontss',
         new Endereco('slsdsdsa', 'blabla', 'okafof', '23')
     ),
-    
+
 );
 
 $conta->deposita(500);
