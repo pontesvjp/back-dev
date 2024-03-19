@@ -7,7 +7,7 @@ function funcao1()
     try {
         funcao2();
     } catch (RuntimeException | DivisionByZeroError $problema) {
-        echo "na funçao 1, resolvi a função 2" . PHP_EOL;
+        echo $problema->getMessage() . PHP_EOL;
     }
 }
 echo 'Saindo da função 1' . PHP_EOL;
