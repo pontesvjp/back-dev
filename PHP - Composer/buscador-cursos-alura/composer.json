@@ -1,0 +1,17 @@
+{
+    "name": "pontesvjp/buscador-cursos",
+    "description": "Projeto que busca os curso no site da Alura",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Pontesvjp\\BuscadorCursos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "pontesvjp",
+            "email": "pontes.vjp@gmail.com"
+        }
+    ],
+    "require": {}
+}
