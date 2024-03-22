@@ -13,5 +13,11 @@
             "email": "pontes.vjp@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "guzzlehttp/guzzle": "^7.8",
+        "symfony/dom-crawler": "7.0.4",
+        "symfony/css-selector": "^7.0",
+        "symfony/polyfill-ctype": "~1.8",
+        "symfony/polyfill-mbstring": "~1.0"
+    }
 }
