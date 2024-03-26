@@ -1,5 +1,7 @@
 <?php
 
+use PDO;
+
 $caminhoBanco = __DIR__ . 'banco.sqlite';
 $pdo = new PDO('sqlite:' . $caminhoBanco);
 

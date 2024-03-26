@@ -1,5 +1,6 @@
 <?php
 
+
 use Alura\Pdo\Domain\Model\Student;
 
 require_once  'PHP - PDO\vendor\autoload.php';
@@ -7,9 +8,20 @@ require_once  'PHP - PDO\vendor\autoload.php';
 $dataBasePath = __DIR__ . 'banco.sqlite';
 $pdo = new PDO('sqlite:' . $dataBasePath);
 
-$student = new Student(null, 'vinicius pontes', new DateTimeImmutable('2003-07-11'));
+$student = new Student(
+    null,
+    "Vinicius Pontes",
+    new DateTimeImmutable('2003-07-11')
+);
+$name = $student->name();
 
-$sqlInsert = "INSERT INTO students (name, birth_date) VALUES ('{$student->name()}', '{$student->birthDate()->format('Y-m-d')}');";
+$sqlInsert = "INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);";
+$statement = $pdo->prepare($sqlInsert);
+$statement->bindParam(':name', $name);
+$statement->bindValue(':birth_date', $student->birthDate()->format('Y-m-d'));
 
+$name = 'novo nome';
 
-var_dump($pdo->exec($sqlInsert));
+if ($statement->execute()) {
+    echo 'aluno incluido';
+};
