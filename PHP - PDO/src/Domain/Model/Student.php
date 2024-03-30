@@ -2,20 +2,26 @@
 
 namespace Alura\Pdo\Domain\Model;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-
 class Student
 {
     private ?int $id;
-    private $name;
-    private DateTimeInterface $birthDate;
+    private string $name;
+    private \DateTimeInterface $birthDate;
 
-    public function __construct(?int $id, string $name, DateTimeInterface $birthDate)
+    public function __construct(?int $id, string $name, \DateTimeInterface $birthDate)
     {
         $this->id = $id;
         $this->name = $name;
         $this->birthDate = $birthDate;
+    }
+
+    public function defineId(int $id): void
+    {
+        if (!is_null($this->id)) {
+            throw new \DomainException('Você só pode definir o ID uma vez');
+        }
+
+        $this->id = $id;
     }
 
     public function id(): ?int
@@ -28,7 +34,12 @@ class Student
         return $this->name;
     }
 
-    public function birthDate(): DateTimeInterface
+    public function changeName(string $newName): void
+    {
+        $this->name = $newName;
+    }
+
+    public function birthDate(): \DateTimeInterface
     {
         return $this->birthDate;
     }
@@ -36,7 +47,7 @@ class Student
     public function age(): int
     {
         return $this->birthDate
-            ->diff(new DateTimeImmutable())
+            ->diff(new \DateTimeImmutable())
             ->y;
     }
 }
