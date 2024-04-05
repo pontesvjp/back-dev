@@ -2,13 +2,12 @@
 
 use Alura\Pdo\Domain\Model\Student;
 
-
-require_once 'PHP - PDO\vendor\autoload.php';
+require_once 'vendor/autoload.php';
 
 $student = new Student(
     null,
-    'Vinicius Pontes',
-    new \DateTimeImmutable('2003-07-11')
+    'Vinicius Dias',
+    new \DateTimeImmutable('1997-10-15')
 );
 
 echo $student->age();
