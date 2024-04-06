@@ -9,13 +9,13 @@ $pdo = \Alura\Pdo\Infrastructure\Persistence\ConnectionCreator::createConnection
 $student = new Student(
     null,
     "Patricia Freitas",
-    new \DateTimeImmutable('1986-100-25')
+    new \DateTimeImmutable('1986-10-25')
 );
 $name = $student->name();
 
 $sqlInsert = "INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);";
 $statement = $pdo->prepare($sqlInsert);
-$statement->bindParam(':naddme', $student->name());
+$statement->bindParam(':name', $student->name());
 $statement->bindValue(':birth_date', $student->birthDate()->format('Y-m-d'));
 
 if ($statement->execute()) {
