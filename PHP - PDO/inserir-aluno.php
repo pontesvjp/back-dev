@@ -1,23 +1,24 @@
 <?php
 
-use Alura\Pdo\Domain\Model\Student;
+$caminhoBanco = __DIR__ . '/banco.sqlite';
+$pdo = new PDO('sqlite:' . $caminhoBanco);
 
-require_once 'vendor/autoload.php';
+echo 'Conectei';
 
-$pdo = \Alura\Pdo\Infrastructure\Persistence\ConnectionCreator::createConnection();
+$createTableSql = '
+    CREATE TABLE IF NOT EXISTS students (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        birth_date TEXT
+    );
 
-$student = new Student(
-    null,
-    "Patricia Freitas",
-    new \DateTimeImmutable('1986-10-25')
-);
-$name = $student->name();
+    CREATE TABLE IF NOT EXISTS phones (
+        id INTEGER PRIMARY KEY,
+        area_code TEXT,
+        number TEXT,
+        student_id INTEGER,
+        FOREIGN KEY(student_id) REFERENCES students(id)
+    );
+';
 
-$sqlInsert = "INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);";
-$statement = $pdo->prepare($sqlInsert);
-$statement->bindParam(':name', $student->name());
-$statement->bindValue(':birth_date', $student->birthDate()->format('Y-m-d'));
-
-if ($statement->execute()) {
-    echo "Aluno incluído";
-}
+$pdo->exec($createTableSql);

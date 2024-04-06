@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "xdebug.php-debug",
+        "devsense.phptools-vscode",
+        "mehedidracula.php-namespace-resolver",
+        "small.php-ci"
+    ]
+}
