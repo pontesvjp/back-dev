@@ -53,7 +53,7 @@ class Student
             ->y;
     }
 
-    public function addPhones(Phone $phone): void
+    public function addPhone(Phone $phone): void
     {
         $this->phones[] = $phone;
     }

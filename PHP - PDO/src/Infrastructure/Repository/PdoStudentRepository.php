@@ -2,9 +2,12 @@
 
 namespace Alura\Pdo\Infrastructure\Repository;
 
+use PDO;
+use Alura\Pdo\Domain\Model\Phone;
 use Alura\Pdo\Domain\Model\Student;
 use Alura\Pdo\Domain\Repository\StudentRepository;
-use PDO;
+use DateTime;
+use DateTimeImmutable;
 
 class PdoStudentRepository implements StudentRepository
 {
@@ -49,6 +52,26 @@ class PdoStudentRepository implements StudentRepository
         return $studentList;
     }
 
+    // public function fillPhonesOf(Student $student): void
+    // {
+    //     $sqlQuery = 'SELECT id, area_code, number FROM phones WHERE student_id = ?';
+    //     $stmt = $this->connection->prepare($sqlQuery);
+    //     $stmt->bindValue(1, $student->id(), PDO::PARAM_INT);
+    //     $stmt->execute();
+
+    //     $phoneDataList = $stmt->fetchAll();
+    //     foreach ($phoneDataList as $phoneData) {
+    //         $phone = new Phone(
+    //             $phoneData['id'],
+    //             $phoneData['area_code'],
+    //             $phoneData['number']
+    //         );
+
+    //         $student->addPhone($phone);
+    //     }
+    // }
+
+
     public function save(Student $student): bool
     {
         if ($student->id() === null) {
@@ -92,5 +115,34 @@ class PdoStudentRepository implements StudentRepository
         $stmt->bindValue(1, $student->id(), PDO::PARAM_INT);
 
         return $stmt->execute();
+    }
+
+    public function studentsWithPhone(): array
+    {
+        $sqlQuery = "SELECT students.id, 
+                            students.name, 
+                            students.birth_date,
+                            phones.is AS phone_id,
+                            phones.area_code,
+                            phones.number
+                    FROM students
+                    JOIN phones ON students.id = phones.student_id;";
+        $stmt = $this->connection->query($sqlQuery);
+        $result = $stmt->fetchAll();
+        $studentList = [];
+
+        foreach ($result as $row) {
+            if (!array_key_exists($row['id'], $studentList)) {
+                $studentList[$row['id']] = new Student(
+                    $row['id'],
+                    $row['name'],
+                    new DateTimeImmutable($row['bith_date'])
+                );
+            }
+            $phone = new Phone($row['phone_id'], $row['area_code'], $row['number']);
+            $studentList[$row['id']]->addPhone($phone);
+        }
+
+        return $studentList;
     }
 }
