@@ -2,7 +2,7 @@
 
 namespace Alura\Pdo\Domain\Model;
 
-class phone
+class Phone
 {
 
     private ?int $id;
@@ -14,5 +14,10 @@ class phone
         $this->id = $id;
         $this->areaCode = $areaCode;
         $this->number = $number;
+    }
+
+    public function formattedPhone(): string
+    {
+        return "($this->areaCode) $this->number";
     }
 }
