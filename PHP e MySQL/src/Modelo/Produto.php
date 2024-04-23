@@ -46,4 +46,12 @@ class Produto {
     {
         return $this->preco;
     }
+
+    public function getPrecoFormatado(): string{
+        return number_format(  $this->preco, 2);
+    }
+
+    public function getImagemDiretorio(): string{
+        return "img/" . $this->imagem;
+    }
 }

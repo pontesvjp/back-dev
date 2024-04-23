@@ -1,10 +1,12 @@
 <?php
-    require "src/conexao-bd.php";
-    require "src/Modelo/Produto.php";
+
+require "src/conexao-bd.php";
+require "src/Modelo/Produto.php";
 require "src/Repositorio/ProdutoRepositorio.php";
 
 $produtosRepositorio = new ProdutoRepositorio($pdo);
 $dadosCafe = $produtosRepositorio->opcoesCafe();
+$dadosAlmoco = $produtosRepositorio->opcoesAlmoco();
 ?>
 
 <!doctype html>
@@ -38,15 +40,15 @@ $dadosCafe = $produtosRepositorio->opcoesCafe();
                 <img class="ornaments" src="img/ornaments-coffee.png" alt="ornaments">
             </div>
             <div class="container-cafe-manha-produtos">
-                <?php foreach ($dadosCafe as $cafe):?>
-                <div class="container-produto">
-                    <div class="container-foto">
-                        <img src="<?php echo "img/" . $cafe->getImagem()?> ">
+                <?php foreach ($dadosCafe as $cafe) : ?>
+                    <div class="container-produto">
+                        <div class="container-foto">
+                            <img src="<?= $cafe->getImagemDiretorio() ?>">
+                        </div>
+                        <p><?= $cafe->getNome() ?></p>
+                        <p><?= $cafe->getDescricao() ?></p>
+                        <p><?= $cafe->getPrecoFormatado() ?></p>
                     </div>
-                    <p><?= $cafe->getNome() ?></p>
-                    <p><?= $cafe->getDescricao() ?></p>
-                    <p><?= "R$ " .  number_format( $cafe->getPreco(), 2) ?></p>
-                </div>
                 <?php endforeach; ?>
             </div>
         </section>
@@ -56,17 +58,18 @@ $dadosCafe = $produtosRepositorio->opcoesCafe();
                 <img class="ornaments" src="img/ornaments-coffee.png" alt="ornaments">
             </div>
             <div class="container-almoco-produtos">
-            <?php foreach ($dadosAlmoco as $almoco):?>
-                <div class="container-produto">
-                    <div class="container-foto">
-                        <img src="<?php echo "img/" .  $almoco->getImagem()?> ">
+                <?php foreach ($dadosAlmoco as $almoco) : ?>
+                    <div class="container-produto">
+                        <div class="container-foto">
+                            <img src="<?= $almoco->getImagemDiretorio() ?>">
+                        </div>
+                        <p><?= $almoco->getNome() ?></p>
+                        <p><?= $almoco->getDescricao() ?></p>
+                        <p><?= $almoco->getPrecoFormatado() ?></p>
                     </div>
-                    <p><?= $almoco->getNome() ?></p>
-                    <p><?= $almoco->getDescricao() ?></p>
-                    <p><?= "R$ " . number_format(  $almoco->getPreco(), 2) ?></p>
-                </div>
                 <?php endforeach; ?>
             </div>
+
         </section>
     </main>
 </body>
