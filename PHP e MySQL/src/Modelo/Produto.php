@@ -54,4 +54,12 @@ class Produto {
     public function getImagemDiretorio(): string{
         return "img/" . $this->imagem;
     }
+
+   
+    public function setImagem($imagem)
+    {
+        $this->imagem = $imagem;
+
+        return $this;
+    }
 }
