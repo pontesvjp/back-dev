@@ -1,5 +1,8 @@
 <?php
 
+use Mvc\Entity\Video;
+use Mvc\Repository\VideoRepository;
+
 require "conexao-bd.php";
 $url = filter_input(INPUT_POST, 'url', FILTER_VALIDATE_URL);
 if ($url === false) {
@@ -12,14 +15,10 @@ if ($titulo === false) {
     exit();
 }
 
-$sql = 'INSERT INTO videos (url, title) VALUES (?, ?)';
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $url);
-$statement->bindValue(2, $titulo);
+$repositoy = new VideoRepository($pdo);
 
-if ($statement->execute() === false) {
+if ($repositoy->add(new Video($url, $titulo)) === false) {
     header('Location: /?sucesso=0');
 } else {
     header('Location: /?sucesso=1');
 }
-

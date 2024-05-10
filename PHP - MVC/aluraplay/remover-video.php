@@ -1,13 +1,13 @@
 <?php
+use Mvc\Repository\VideoRepository;
 
 require "conexao-bd.php";
 
 $id = $_GET['id'];
-$sql = 'DELETE FROM videos WHERE id = ?';
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $id);
+$repository = new VideoRepository($pdo);
+$repository->remove($id);
 
-if ($statement->execute() === false) {
+if ($repository->remove($id) === false) {
     header('Location: /index.php?sucesso=0');
 } else {
     header('Location: /index.php?sucesso=1');

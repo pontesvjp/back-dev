@@ -1,4 +1,6 @@
 <?php
+use Mvc\Entity\Video;
+use Mvc\Repository\VideoRepository;
 
 require "conexao-bd.php";
 
@@ -18,15 +20,9 @@ if ($titulo === false) {
     header('Location: /?sucesso=0');
     exit();
 }
+$video = new Video($url, $titulo);
+$video->setId($id);
 
-$sql = 'UPDATE videos SET url = :url, title = :title WHERE id = :id;';
-$statement = $pdo->prepare($sql);
-$statement->bindValue(':url', $url);
-$statement->bindValue(':title', $titulo);
-$statement->bindValue(':id', $id, PDO::PARAM_INT);
+$repository = new VideoRepository($pdo);
+$repository->update($video);
 
-if ($statement->execute() === false) {
-    header('Location: /?sucesso=0');
-} else {
-    header('Location: /?sucesso=1');
-}
