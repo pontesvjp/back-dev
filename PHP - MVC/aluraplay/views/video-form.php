@@ -1,5 +1,3 @@
-
-
 <?php require_once __DIR__ . '/inicio-html.php'; ?>
 <main class="container">
     <form class="container__formulario" method="post">

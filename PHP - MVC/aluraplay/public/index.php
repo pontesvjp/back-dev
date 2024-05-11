@@ -16,7 +16,6 @@ use Alura\Mvc\Repository\VideoRepository;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $pdo = new PDO('mysql:host=localhost;dbname=videos', 'root', 'V1nicius');
-
 $videoRepository = new VideoRepository($pdo);
 
 if (!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/') {
