@@ -1,15 +1,6 @@
-<?php
-
-use Mvc\Repository\VideoRepository;
-
-require "conexao-bd.php";
-
-$repositoy = new VideoRepository($pdo);
-$videoList = $repositoy->all();
+<?php require_once __DIR__ . '/inicio-html.php';
 
 ?>
-<?php require_once "inicio-html.php"; ?>
-
 <ul class="videos__container">
     <?php foreach ($videoList as $video) : ?>
         <li class="videos__item">
@@ -25,4 +16,4 @@ $videoList = $repositoy->all();
     <?php endforeach; ?>
 </ul>
 
-<?php require_once "fim-html.php"; ?>
+<?php require_once __DIR__ . '/fim-html.php';
