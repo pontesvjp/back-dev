@@ -13,7 +13,7 @@
                 <a href="{{ route('series.edit', $serie->id) }}" class="btn btn-primary btn-sm ">E</a>
                 <form method="post" action="{{ route('series.destroy', $serie->id) }}" class="ms-2">
                     @csrf @method('DELETE')
-                    <button class="btn btn-danger btn-sm">X</button>
+                    <button class="btn btn-danger btn-sm"> slaX</button>
                 </form>
             </span>
         </li>
