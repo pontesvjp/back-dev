@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use App\Http\Requests\SeriesFormRequest;
 use App\Repositories\EloquentSeriesRepository;
 use App\Repositories\SeriesRepository;
+use Illuminate\Support\Facades\Auth;
 
 class SeriesController extends Controller
 {
